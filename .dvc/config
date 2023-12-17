@@ -1,0 +1,5 @@
+[core]
+    analytics = false
+    remote = mlops
+['remote "mlops"']
+    url = gdrive://1bMXXfvVrD3Qpm_7_2ks-yNN6r3Yjx43a

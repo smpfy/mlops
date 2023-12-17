@@ -1,0 +1,6 @@
+train:
+  n_epochs: 5
+  learning_rate: 1e-3
+  batch_size: 64
+  device: "cuda"
+  seed: 42
