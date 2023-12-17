@@ -1,0 +1,7 @@
+name: mlops
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  - poetry=1.7.1
+  - python=3.10
