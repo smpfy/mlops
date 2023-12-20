@@ -1,6 +1,6 @@
+model_name: "net"
 train:
-  n_epochs: 5
+  n_epochs: 2
   learning_rate: 1e-3
   batch_size: 64
-  device: "cuda"
-  seed: 42
+  device: "cpu"
