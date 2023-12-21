@@ -28,7 +28,7 @@ def infer(config_name: str = DEFAULT_CONFIG_NAME, download_dataset: bool = True)
 def save_predictions_to_csv(predictions: list[tuple[int, int]], filename: str) -> None:
     with open(filename, mode="w") as file:
         writer = csv_writer(file)
-        writer.writerow(["y_true", "y_pred"])
+        writer.writerow(["true", "pred"])
         writer.writerows(predictions)
 
 
