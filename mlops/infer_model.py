@@ -4,7 +4,7 @@ from onnxruntime import InferenceSession
 from .utils import create_data_loader
 
 
-def infer_model(root: str, model_filename: str) -> list[(int, int)]:
+def infer_model(root: str, model_filename: str) -> list[tuple[int, int]]:
     data_loader = create_data_loader(root, batch_size=1, shuffle=False)
     onnx_model = load_onnx_model(model_filename)
 

@@ -55,18 +55,18 @@ def load_mnist_labels(path: Path) -> np.ndarray:
     return labels
 
 
-def load_usps_images_and_labels(path: Path) -> (np.array, np.array):
+def load_usps_images_and_labels(path: Path) -> tuple[np.ndarray, np.ndarray]:
     with bz2.open(str(path), mode="rb") as f:
         lines = [line.decode().split() for line in f.readlines()]
-        data = [[item.split(":")[-1] for item in line[1:]] for line in lines]
-        data = np.array(data, dtype=np.float64)
+        pixels = [[item.split(":")[-1] for item in line[1:]] for line in lines]
+        data = np.array(pixels, dtype=np.float64)
         data = ((data + 1) / 2 * 255).astype(np.uint8)
         images = data.reshape((-1, 16, 16))
         labels = np.array([int(line[0]) - 1 for line in lines])
     return images, labels
 
 
-def save_dataset(images: np.array, labels: np.array, out_path: Path, prefix: str) -> None:
+def save_dataset(images: np.ndarray, labels: np.ndarray, out_path: Path, prefix: str) -> None:
     for i, (image, label) in enumerate(zip(images, labels)):
         path = out_path / str(label)
         path.mkdir(parents=True, exist_ok=True)
