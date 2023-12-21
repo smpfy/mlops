@@ -1,7 +1,7 @@
 model_name: "net"
-tracking_uri: "http://127.0.0.1:5000"
+tracking_uri: "http://128.0.1.1:8080"
 train:
-  n_epochs: 5
+  n_epochs: 2
   learning_rate: 1e-3
   batch_size: 64
-  device: "cuda"
+  device: "cpu"
