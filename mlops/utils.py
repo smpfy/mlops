@@ -8,35 +8,29 @@ from dvc.api import DVCFileSystem
 from torch.utils.data import DataLoader
 from torchvision.datasets import ImageFolder
 
-from .consts import (
-    MODELS_DIR,
-    RAW_DIR,
-    TEST_DIR,
-    TMP_TEST_DIR,
-    TMP_TRAIN_DIR,
-    TRAIN_DIR,
-)
+from .consts import MODELS_DIR, RAW_DIR, TEST_DIR, TMP_RAW_DIR, TRAIN_DIR
 from .prepare_dataset import prepare_dataset
 
 
 def fetch_dataset(train: bool, download: Optional[bool]) -> str:
-    cache_dir = TRAIN_DIR if train else TEST_DIR
-    tmp_dir = TMP_TRAIN_DIR if train else TMP_TEST_DIR
-    root = tmp_dir if download else cache_dir
+    if download:
+        if Path(TMP_RAW_DIR).is_dir():
+            rmtree(TMP_RAW_DIR)
+
+        logging.info(f"Download dataset: {TMP_RAW_DIR}")
+        DVCFileSystem().get(rpath=RAW_DIR, lpath=TMP_RAW_DIR, recursive=True)
+
+    raw_dir = TMP_RAW_DIR if download else RAW_DIR
+    root = TRAIN_DIR if train else TEST_DIR
 
     if Path(root).is_dir():
         rmtree(root)
 
-    if download:
-        logging.info(f"Download dataset: {root}")
-        DVCFileSystem().get(rpath=cache_dir, lpath=root, recursive=True)
-        return root
-
     logging.info(f"Prepare dataset: {root}")
     if train:
-        prepare_dataset(raw_dir=RAW_DIR, train_dir=root)
+        prepare_dataset(raw_dir=raw_dir, train_dir=root)
     else:
-        prepare_dataset(raw_dir=RAW_DIR, test_dir=root)
+        prepare_dataset(raw_dir=raw_dir, test_dir=root)
 
     return root
 

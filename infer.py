@@ -21,11 +21,11 @@ def infer(config_name: str = DEFAULT_CONFIG_NAME, download_dataset: bool = True)
     predictions = infer_model(root=root, model_filename=model_filename)
 
     predictions_filename = model_name + "_infer.csv"
-    logging.info(f"Save predictions: {predictions_filename}")
     save_predictions_to_csv(predictions, filename=predictions_filename)
 
 
 def save_predictions_to_csv(predictions: list[tuple[int, int]], filename: str) -> None:
+    logging.info(f"Save predictions: {filename}")
     with open(filename, mode="w") as file:
         writer = csv_writer(file)
         writer.writerow(["true", "pred"])

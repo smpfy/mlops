@@ -1,0 +1,5 @@
+outs:
+- md5: 2102b02261846a596bea3dd84466602c
+  size: 4818215
+  hash: md5
+  path: net.onnx

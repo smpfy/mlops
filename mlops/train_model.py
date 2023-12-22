@@ -1,3 +1,6 @@
+import logging
+from pathlib import Path
+
 import onnx
 import torch
 import torch.nn as nn
@@ -66,6 +69,11 @@ def train_model(
 
 
 def save_model_to_onnx(model: nn.Module, x: torch.Tensor, filename: str) -> None:
+    logging.info(f"Save model: {filename}")
+
+    path = Path(filename)
+    path.parents[0].mkdir(parents=False, exist_ok=True)
+
     output = torch.onnx.dynamo_export(model, x)
     output.save(filename)
 
